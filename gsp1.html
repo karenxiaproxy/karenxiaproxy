@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Anagram</title>
+  <style>
+    body
+    {
+      background-color : #484848;
+    }
+    form {
+      top:20px;
+      width: 270px;
+      margin: 0 auto;
+    }
+    #msgDiv {
+      width: 400px;
+      height: 200px;
+      margin: 0 auto;
+    }
+    #spaceDiv {
+      height: 20px;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+    var totalLetters = 26;
+    //test cases
+    var word1 = "hello";
+    var word2 = "karen";
+    console.log(checkAnagram(word1, word2));
+    word1 = "tacos";
+    word2 = "coast";
+    console.log(checkAnagram(word1, word2));
+    function checkAnagram(word1, word2) {
+      var notAnagram = "These two strings, <u>" + word1 + "</u> and <u>" + word2 + "</u>, are not anagrams.";
+      var areAnagram = "These two strings, <u>" + word1 + "</u> and <u>" + word2 + "</u>, are anagrams.";
+      if (word1.length != word2.length)
+        return notAnagram;
+      var anagram1 = word1.toLowerCase();
+      var anagram2 = word2.toLowerCase();
+      var count1 = new Array(totalLetters);
+      var count2 = new Array(totalLetters);
+      for (var k=0; k<totalLetters; k++) {
+        count1[k] = 0;
+        count2[k] = 0;
+      }
+      console.log("===========ANAGRAM 1=============");
+      for(var i = 0; i < anagram1.length; i++)
+      {
+        var curr_letter1 = anagram1.charAt(i);
+        var indexOfLetter1 = 'z'.charCodeAt(0) - curr_letter1.charCodeAt(0);
+        console.log("-------- " + curr_letter1 + " " + indexOfLetter1 + " " + curr_letter1.charCodeAt(0) + " " + ('z'.charCodeAt(0)));
+        count1[indexOfLetter1] += 1;
+      }
+      console.log("===========ANAGRAM 2=============" );
+      for(var i = 0; i < anagram2.length; i++)
+      {
+        var curr_letter2 = anagram2.charAt(i);
+        var indexOfLetter2 = 'z'.charCodeAt(0) - curr_letter2.charCodeAt(0);
+        console.log("-------- " + curr_letter2 + " " + indexOfLetter2);
+        count2[indexOfLetter2] += 1;
+      }
+      console.log(count1);
+      console.log(count2);
+      var count = 0;
+      var x = 0;
+      while (x < totalLetters)
+      {
+        if (count1[x] == count2[x]) count++;
+        x++;
+      }
+      if(count == totalLetters)
+      {
+        console.log();
+        return areAnagram;
+      }
+      else
+      {
+        console.log();
+        return notAnagram;
+      }
+    }
+    function checkitout() {
+      console.log("checkitout" );
+      var word1 = document.forms["myForm"].word1.value;
+      var word2 = document.forms["myForm"].word2.value;
+      console.log(word1, word2);
+      var msg = checkAnagram(word1, word2);
+      console.log(msg);
+      //alert(msg);
+      document.getElementById("msgDiv").innerHTML = msg;
+    }
+    function clearForm() {
+      console.log("clear" );
+      document.getElementById("myForm").reset();
+      document.getElementById("msgDiv").innerHTML = "";
+    }
+  </script>
+
+</head>
+<body style="background-color: #F7EFE5">
+<div>
+
+  <form id="myForm">
+  <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+    <tr>
+      <td>
+        <label for="word1">First String:</label>
+      </td>
+      <td>
+        <input type="text" id="word1" name="word1" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="word2">Second String:</label>
+      </td>
+      <td>
+        <input type="text" id="word2" name="word2" />
+      </td>
+    </tr>
+  </table>
+
+  <button type="button" onClick="checkitout()"> Check it out!</button>
+  <button type="button" onClick="clearForm()"> Clear </button>
+  </form>
+  
+<video width="320" height="240" controls>
+  <source src="GSPVideos/10Tango94.mp4" type="video/mp4">
+  <source src="GSPVideos/2Rio2-61.MP4" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
+
+</div>
+<div id="spaceDiv"> </div>
+<div id="msgDiv">
+
+</div>
+</body>
+</html>
